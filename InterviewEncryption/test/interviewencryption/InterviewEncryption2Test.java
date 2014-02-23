@@ -18,6 +18,7 @@ import static org.junit.Assert.*;
  * @author apprentice
  */
 public class InterviewEncryption2Test {
+    InterviewEncryption2 iE2 = new InterviewEncryption2();
     
     public InterviewEncryption2Test() {
     }
@@ -47,9 +48,9 @@ public class InterviewEncryption2Test {
         String url = "http://www.google.com";
         String out = "key";
         
-        String result = InterviewEncryption2.getUrl(url, out);
+        String result = iE2.getUrl( out);
         
-        assertTrue(result != "");
+        assertTrue(!result.equals(""));
        
     }
 
@@ -63,10 +64,25 @@ public class InterviewEncryption2Test {
         String inputLine1 = "SOMETHING ELSE";
         String out = "KEY";
         boolean expResult = false;
-        boolean result = InterviewEncryption2.wereIn(inputLine, out);
+        boolean result = iE2.wereIn(inputLine, out);
         assertFalse(result);
-        result = InterviewEncryption2.wereIn(inputLine1, out);
+        result = iE2.wereIn(inputLine1, out);
         assertTrue(result);
+        
+    }
+    
+    @Test
+    public void testgetKeyDeniedValue(){
+        
+        String html = "<html><body>KEY DENIED: 110100</body></html>";
+        int offset0=0;
+        int offset1=1;
+        int offset2=2;
+        
+        assertEquals(iE2.getKeyDeniedValue(html, offset0),"11");
+        assertEquals(iE2.getKeyDeniedValue(html, offset1),"01");
+        assertEquals(iE2.getKeyDeniedValue(html, offset2),"00");
+        
         
     }
     
